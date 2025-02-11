@@ -1,0 +1,24 @@
+name: Markdown to PDF
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install Pandoc
+        run: sudo apt install -y pandoc
+
+      - name: Convert Markdown to PDF
+        run: pandoc -o dokument.pdf README.md
+
+      - name: Upload PDF
+        uses: actions/upload-artifact@v2
+        with:
+          name: pdf-output
+          path: dokument.pdf
